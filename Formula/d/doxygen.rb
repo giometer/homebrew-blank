@@ -32,6 +32,8 @@ class Doxygen < Formula
   uses_from_macos "python" => :build
   uses_from_macos "sqlite"
 
+  deny_network_access!
+
   def install
     # Remove bundled dependencies
     rm_r(%w[
