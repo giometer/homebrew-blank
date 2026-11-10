@@ -7,12 +7,12 @@ class Dotnet < Formula
 
   stable do
     # Source-build tag announced at https://github.com/dotnet/source-build/discussions
-    url "https://github.com/dotnet/dotnet/releases/download/v10.0.403/release.json"
-    sha256 "e27293d0409222c9add9b03f0de0f4a61c231d9584b3d0aa74dba291435acfd5"
+    url "https://github.com/dotnet/dotnet/releases/download/v11.0.100/release.json"
+    sha256 "007b0ad9b0cf567e35fab4db99fd01310e906e8566f57b437141ca314edc30cd"
 
     resource "src" do
-      url "https://github.com/dotnet/dotnet/archive/refs/tags/v10.0.403.tar.gz"
-      sha256 "23750f9fd06dc1ef277b261af88101a8c12159596206f04e46bf5f3883aa8ca2"
+      url "https://github.com/dotnet/dotnet/archive/refs/tags/v11.0.100.tar.gz"
+      sha256 "d133a74d6bb0b7eccdbfc96bf81950767691c08f88f9e25a374de92ab4d31b34"
 
       livecheck do
         formula :parent
@@ -205,22 +205,6 @@ class Dotnet < Formula
     end
 
     cd "dotnet" do
-      if build.stable?
-        # Fixes build error where member names shadow type names
-        # Error: declaration of '...' changes meaning of '...'
-        inreplace "src/runtime/src/coreclr/jit/gentree.h" do |s|
-          s.gsub! "    ExecutionContextHandling    ExecutionContextHandling",
-                  "    ::ExecutionContextHandling    ExecutionContextHandling"
-          s.gsub! "= ExecutionContextHandling::None;",
-                  "= ::ExecutionContextHandling::None;"
-
-          s.gsub! "    ContinuationContextHandling ContinuationContextHandling",
-                  "    ::ContinuationContextHandling ContinuationContextHandling"
-          s.gsub! "= ContinuationContextHandling::None;",
-                  "= ::ContinuationContextHandling::None;"
-        end
-      end
-
       # Skip installer build on macOS - prevents CreatePkg target errors
       # See: https://github.com/dotnet/runtime/issues/122832
       if OS.mac?
