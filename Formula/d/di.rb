@@ -25,6 +25,8 @@ class Di < Formula
   depends_on "cmake" => :build
   depends_on "pkgconf" => :build
 
+  deny_network_access!
+
   def install
     args = %W[
       -DDI_BUILD=Release
