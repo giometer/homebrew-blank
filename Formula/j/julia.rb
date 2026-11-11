@@ -1,4 +1,4 @@
-class Juliamonterey < Formula
+class Julia < Formula
   desc "Fast, Dynamic Programming Language"
   homepage "https://julialang.org/"
   url "https://github.com/JuliaLang/julia/releases/download/v1.6.3/julia-1.6.3.tar.gz"
